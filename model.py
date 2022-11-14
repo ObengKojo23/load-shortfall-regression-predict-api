@@ -6,7 +6,7 @@
 
     Note:
     ---------------------------------------------------------------------
-    Please follow the instructions provided within the README.md file
+    Plase follow the instructions provided within the README.md file
     located within this directory for guidance on how to use this script
     correctly.
 
@@ -26,6 +26,7 @@ import numpy as np
 import pandas as pd
 import pickle
 import json
+import datetime
 
 def _preprocess_data(data):
     """Private helper function to preprocess data for model prediction.
@@ -43,6 +44,7 @@ def _preprocess_data(data):
     -------
     Pandas DataFrame : <class 'pandas.core.frame.DataFrame'>
         The preprocessed data, ready to be used our model for prediction.
+
     """
     # Convert the json string to a python dictionary object
     feature_vector_dict = json.loads(data)
@@ -58,7 +60,16 @@ def _preprocess_data(data):
     # ---------------------------------------------------------------
 
     # ----------- Replace this code with your own preprocessing steps --------
-    predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
+    predict_vector = feature_vector_df[['Valencia_pressure','Madrid_wind_speed', 'Valencia_wind_speed','Madrid_humidity',
+                                        'Madrid_weather_id','Seville_temp','Madrid_temp']]
+    
+    # drop non-useful column
+    predict_vector['Valencia_pressure'] = predict_vector['Valencia_pressure'].fillna(value = 0)
+    
+    
+    
+   
+
     # ------------------------------------------------------------------------
 
     return predict_vector
@@ -81,13 +92,8 @@ def load_model(path_to_model:str):
     """
     return pickle.load(open(path_to_model, 'rb'))
 
-
-""" You may use this section (above the make_prediction function) of the python script to implement 
-    any auxiliary functions required to process your model's artifacts.
-"""
-
 def make_prediction(data, model):
-    """Prepare request data for model prediction.
+    """Prepare request data for model prediciton.
 
     Parameters
     ----------
@@ -106,5 +112,5 @@ def make_prediction(data, model):
     prep_data = _preprocess_data(data)
     # Perform prediction with model and preprocessed data.
     prediction = model.predict(prep_data)
-    # Format as list for output standardisation.
+    # Format as list for output standerdisation.
     return prediction[0].tolist()

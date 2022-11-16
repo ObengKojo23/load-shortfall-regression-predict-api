@@ -39,7 +39,7 @@ feature_vector_json = test.iloc[1].to_json()
 # url = 'http://{public-ip-address-of-remote-machine}:5000/api_v0.1'
 #url  = 'http://192.168.0.113:5000/api_v0.1'
 #url  = 'http://172.20.10.3:5000/api_v0.1'
-url  = 'http://34.240.235.25:5000/api_v0.1'
+url  = 'http://34.252.200.90:5000/api_v0.1'
 
 
 # Perform the POST request.
